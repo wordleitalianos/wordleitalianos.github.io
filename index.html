@@ -5,29 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Par🇮🇹le - Un gioco di parole al giorno (Wordle in italiano)</title>
+    <!--<meta name="description" content="Guess the hidden word in 6 tries. A new puzzle is available each day.">-->
     <meta name="description" content="Indovina la parola nascosta in 6 tentativi. Un nuovo puzzle ogni giorno.">
+    
+    <!-- FB Meta Tags -->
+    <meta property="og:url" content="https://pietroppeter.github.io/wordle-it/wordle.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Par🇮🇹le - Un gioco di parole al giorno (Wordle in italiano)">
+    <meta property="og:description" content="Indovina la parola nascosta in 6 tentativi. Un nuovo puzzle ogni giorno.">
+    <meta property="og:image" content="https://pietroppeter.github.io/wordle-it/images/parle_og_1200x630.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="pietroppeter.github.io/wordle-it">
 
     <meta name="theme-color" content="#6aaa64" />
     <link rel="manifest" href="manifest.json" />
     <link href="images/parle_logo_32x32.png" rel="icon shortcut" sizes="3232" />
     <link href="images/parle_logo_192x192.png" rel="apple-touch-icon" />
-
     <script>
      function randomAnalytics() {
+      // analytics are loaded once every X times
       const times = 40;
+
+      // pick a random number
       var index = Math.floor(Math.random()*times);
+      console.log(index)
+
       if (index === 0) {
+        console.log("loading analytics")
+        // Append JS file to head section.
         var script = document.createElement('script');
         script.defer = true
         script.setAttribute('data-domain', 'pietroppeter.github.io/wordle-it')
         script.src = 'https://plausible.io/js/plausible.js';
         document.getElementsByTagName('head')[0].appendChild(script);	
       }
+      else {
+        console.log("NOT loading analytics")
+      }
      };
     </script>
-
     <style>
-      /* ⚠️ ORIGINAL CSS — untouched */
+      /* Global Styles & Colors */
       :root {
         --green: #6aaa64;
         --darkendGreen: #538d4e;
@@ -38,6 +58,7 @@
         --darkGray: #939598;
         --white: #fff;
         --black: #212121;
+        /* Colorblind colors */
         --orange: #f5793a;
         --blue: #85c0f9;
         font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -46,52 +67,207 @@
         --keyboard-height: 200px;
         --game-max-width: 500px;
       }
-      html { height: 100%; }
+      /* Light theme colors */
+      :root {
+        --color-tone-1: #1a1a1b;
+        --color-tone-2: #787c7e;
+        --color-tone-3: #878a8c;
+        --color-tone-4: #d3d6da;
+        --color-tone-5: #edeff1;
+        --color-tone-6: #f6f7f8;
+        --color-tone-7: #ffffff;
+        --opacity-50: rgba(255, 255, 255, 0.5);
+      }
+      /* Dark Theme Colors */
+      .nightmode {
+        --color-tone-1: #d7dadc;
+        --color-tone-2: #818384;
+        --color-tone-3: #565758;
+        --color-tone-4: #3a3a3c;
+        --color-tone-5: #272729;
+        --color-tone-6: #1a1a1b;
+        --color-tone-7: #121213;
+        --opacity-50: rgba(0, 0, 0, 0.5);
+      }
+      /* Constant colors and colors derived from theme */
+      :root,
+      .nightmode {
+        --color-background: var(--color-tone-7);
+      }
+      :root {
+        --color-present: var(--yellow);
+        --color-correct: var(--green);
+        --color-absent: var(--color-tone-2);
+        --tile-text-color: var(--color-tone-7);
+        --key-text-color: var(--color-tone-1);
+        --key-evaluated-text-color: var(--color-tone-7);
+        --key-bg: var(--color-tone-4);
+        --key-bg-present: var(--color-present);
+        --key-bg-correct: var(--color-correct);
+        --key-bg-absent: var(--color-absent);
+        --modal-content-bg: var(--color-tone-7);
+      }
+      .nightmode {
+        --color-present: var(--darkendYellow);
+        --color-correct: var(--darkendGreen);
+        --color-absent: var(--color-tone-4);
+        --tile-text-color: var(--color-tone-1);
+        --key-text-color: var(--color-tone-1);
+        --key-evaluated-text-color: var(--color-tone-1);
+        --key-bg: var(--color-tone-2);
+        --key-bg-present: var(--color-present);
+        --key-bg-correct: var(--color-correct);
+        --key-bg-absent: var(--color-absent);
+        --modal-content-bg: var(--color-tone-7);
+      }
+      .colorblind {
+        --color-correct: var(--orange);
+        --color-present: var(--blue);
+        --tile-text-color: var(--white);
+        --key-bg-present: var(--color-present);
+        --key-bg-correct: var(--color-correct);
+        --key-bg-absent: var(--color-absent);
+      }
+      html {
+        height: 100%;
+      }
       body {
         height: 100%;
         background-color: var(--color-background);
         margin: 0;
         padding: 0;
-        overflow-y: auto;
+        /* Prevent scrollbar appearing on page transition */
+        overflow-y: hidden;
       }
     </style>
   </head>
-
   <body onload="randomAnalytics();">
     <script>
       (function () {
+        // Defining the hash before the main bundle allows the bundle access window.hash
         window.wordle = window.wordle || {};
         window.wordle.hash = 'parle v220317';
       })();
     </script>
-
     <script src="wordle-it.js"></script>
-
-    <!-- GAME RENDER -->
     <game-app></game-app>
-
-    <!-- ⭐ ONLY ARTICLE ADDED BELOW — NOTHING ELSE CHANGED ⭐ -->
-
-    <div style="max-width:700px;margin:40px auto;padding:20px;color:white;line-height:1.6;font-size:18px;">
-      <h1>PAR🇮🇹LE – Wordle Italiano: Un Gioco di Parole Semplice e Divertente</h1>
-
-      <p>PAR🇮🇹LE, conosciuto come Wordle Italiano, è un gioco di parole molto popolare. È semplice, gratuito e perfetto per qualche minuto di relax.</p>
-
-      <h2>Che cos’è PAR🇮🇹LE</h2>
-      <p>Il gioco consiste nell’indovinare una parola di cinque lettere in sei tentativi. Ogni tentativo ti aiuta a capire quali lettere sono corrette.</p>
-
-      <h2>Come si gioca</h2>
-      <p>Scrivi una parola di cinque lettere. Il gioco ti mostra quali lettere sono giuste e quali no, aiutandoti a trovare lentamente la parola del giorno.</p>
-
-      <h2>Perché piace a tutti</h2>
-      <p>È veloce, leggero e aiuta a migliorare il vocabolario. Ogni giorno ti aspetta una nuova parola da indovinare.</p>
-
-      <h2>Consigli</h2>
-      <p>Inizia con parole piene di vocali come “AMORE”. Non ripetere lettere già sbagliate e ragiona con calma.</p>
-
-      <h2>Conclusione</h2>
-      <p>PAR🇮🇹LE è un gioco intelligente, semplice e divertente. Perfetto per imparare e divertirsi allo stesso tempo.</p>
-    </div>
-
   </body>
 </html>
+
+
+
+
+
+
+
+    <h1>PAR🇮🇹LE – Wordle Italiano: Un Gioco di Parole Semplice e Divertente</h1>
+
+    <p>
+      PAR🇮🇹LE, conosciuto da molti come Wordle Italiano, è un gioco di parole molto popolare in Italia.
+      È facile da capire, gratuito e perfetto per passare qualche minuto di relax ogni giorno.
+      Il suo funzionamento è semplice, e proprio per questo è diventato un’abitudine quotidiana per tante persone.
+      In questo articolo scoprirai come funziona PAR🇮🇹LE, perché è così amato e come migliorare le tue possibilità di vincere.
+    </p>
+
+    <h2>Che cos’è PAR🇮🇹LE (Wordle Italiano)</h2>
+
+    <p>
+      PAR🇮🇹LE è la versione italiana del celebre gioco Wordle. L’obiettivo è indovinare una parola italiana di cinque lettere
+      usando un massimo di sei tentativi. Dopo ogni tentativo, il gioco mostra quali lettere sono corrette e quali no,
+      permettendoti di avvicinarti alla soluzione passo dopo passo.
+    </p>
+
+    <p>
+      Il gioco è completamente in italiano, non richiede registrazione e può essere giocato sia su telefono che su computer.
+      La sua semplicità lo rende accessibile a tutti, dai bambini agli adulti.
+    </p>
+
+    <h2>Come si gioca a PAR🇮🇹LE</h2>
+
+    <p>
+      Giocare è molto semplice. Basta scrivere una parola italiana di cinque lettere e osservare i risultati.
+      Se una lettera è corretta e si trova nel punto giusto, il gioco lo indica chiaramente.
+      Se una lettera è presente ma in un’altra posizione, lo mostra in modo diverso.
+      Se invece una lettera non appartiene alla parola del giorno, viene segnalato chiaramente.
+    </p>
+
+    <p>
+      Queste indicazioni aiutano a capire qual è la parola nascosta. Per questo motivo, il gioco non è solo divertente,
+      ma anche un piccolo esercizio mentale che stimola la logica e il ragionamento.
+    </p>
+
+    <h2>Perché PAR🇮🇹LE è così popolare</h2>
+
+    <p>
+      Una delle ragioni principali del suo successo è la sua struttura molto semplice.
+      Ogni giorno c’è una sola parola da indovinare, e questo rende il gioco breve e piacevole.
+      Molte persone lo giocano la mattina, come un piccolo rituale quotidiano, mentre altre preferiscono farlo durante una pausa di lavoro o studio.
+    </p>
+
+    <p>
+      Un altro motivo della sua popolarità è il fatto che migliora il vocabolario italiano.
+      Ogni giorno si scoprono nuove parole e significati, rendendolo utile oltre che divertente.
+      Il gioco aiuta anche a concentrarsi e a sviluppare un pensiero più rapido.
+    </p>
+
+    <h2>Consigli utili per giocare meglio</h2>
+
+    <p>
+      Ci sono alcuni suggerimenti semplici che possono aiutarti a trovare la parola più velocemente.
+      Il primo è cominciare con una parola che contiene più vocali, come “AMORE” o “AIUTO”.
+      Le vocali permettono di capire rapidamente la struttura della parola nascosta.
+    </p>
+
+    <p>
+      Un altro consiglio è usare parole comuni della lingua italiana, perché di solito le soluzioni non sono termini difficili o tecnici.
+      È anche utile non ripetere lettere che sai già essere sbagliate, così eviti di sprecare tentativi.
+      Infine, non avere fretta: il gioco non ha un limite di tempo, quindi puoi ragionare con calma.
+    </p>
+
+    <h2>La soluzione del giorno e gli aiuti</h2>
+
+    <p>
+      Ogni giorno molti giocatori cercano informazioni come “Wordle italiano oggi”, “soluzione PAR🇮🇹LE” o “parola del giorno”.
+      Questo succede perché alcune parole possono essere più difficili del previsto.
+      In questi casi, leggere un indizio o un suggerimento può aiutare senza rovinare il divertimento.
+    </p>
+
+    <p>
+      Ci sono anche siti che pubblicano piccoli aiuti per guidare i giocatori verso la risposta corretta, ma senza rivelarla completamente.
+      Questo permette di continuare a giocare mantenendo la soddisfazione della scoperta finale.
+    </p>
+
+    <h2>Perché giocare fa bene</h2>
+
+    <p>
+      PAR🇮🇹LE non è solo un semplice passatempo. Oltre a essere piacevole, ha benefici reali.
+      Giocarlo ogni giorno può aumentare la memoria, migliorare la capacità di concentrazione e arricchire il vocabolario.
+      È anche un modo leggero per fare esercizio mentale senza fatica.
+    </p>
+
+    <p>
+      Molte persone lo usano come momento di pausa mentale, perché permette di staccare la mente da impegni e stress.
+      Sapere che c’è una sola parola da indovinare rende il gioco breve ma soddisfacente, ideale per chi ha poco tempo.
+    </p>
+
+    <h2>Un gioco per tutti</h2>
+
+    <p>
+      PAR🇮🇹LE è adatto a qualsiasi tipo di giocatore.
+      Gli studenti possono usarlo per migliorare l’italiano, gli adulti lo trovano utile per tenere la mente attiva,
+      mentre chi sta imparando la lingua lo usa per esercitarsi in modo semplice e naturale.
+      La sua accessibilità è uno dei motivi principali della sua popolarità.
+    </p>
+
+    <h2>Conclusione</h2>
+
+    <p>
+      PAR🇮🇹LE – Wordle Italiano è un gioco che unisce semplicità, intelligenza e divertimento.
+      È ideale per chi vuole migliorare la mente, ampliare il proprio vocabolario o semplicemente dedicare qualche minuto al giorno a un’attività piacevole.
+      Ogni nuova parola è una piccola sfida e una nuova occasione per imparare qualcosa.
+    </p>
+
+    <p>
+      Se non lo hai ancora provato, vale davvero la pena iniziare.
+      Potresti scoprire che indovinare la parola del giorno diventa rapidamente una parte importante della tua routine quotidiana.
+    </p>
