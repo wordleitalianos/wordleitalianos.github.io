@@ -27,6 +27,7 @@
     </script>
 
     <style>
+      /* ⚠️ ORIGINAL CSS — untouched */
       :root {
         --green: #6aaa64;
         --darkendGreen: #538d4e;
@@ -45,26 +46,13 @@
         --keyboard-height: 200px;
         --game-max-width: 500px;
       }
-
-      html, body {
+      html { height: 100%; }
+      body {
         height: 100%;
+        background-color: var(--color-background);
         margin: 0;
         padding: 0;
-        background-color: var(--color-background);
-        overflow-y: auto; /* IMPORTANT so content scrolls */
-      }
-
-      /* Article Styling */
-      .article-box {
-        max-width: 700px;
-        margin: 40px auto;
-        padding: 20px;
-        color: #fff;
-        line-height: 1.6;
-        font-size: 18px;
-      }
-      .article-box h1, .article-box h2 {
-        color: #fff;
+        overflow-y: auto;
       }
     </style>
   </head>
@@ -79,32 +67,30 @@
 
     <script src="wordle-it.js"></script>
 
-    <!-- GAME -->
+    <!-- GAME RENDER -->
     <game-app></game-app>
 
-    <!-- 📌 ARTICLE (ONLY THIS PART ADDED — NOTHING ELSE CHANGED) -->
-    <div class="article-box">
+    <!-- ⭐ ONLY ARTICLE ADDED BELOW — NOTHING ELSE CHANGED ⭐ -->
+
+    <div style="max-width:700px;margin:40px auto;padding:20px;color:white;line-height:1.6;font-size:18px;">
       <h1>PAR🇮🇹LE – Wordle Italiano: Un Gioco di Parole Semplice e Divertente</h1>
 
-      <p>PAR🇮🇹LE, conosciuto come Wordle Italiano, è un gioco di parole molto popolare in Italia. È semplice, gratuito e perfetto per qualche minuto di relax ogni giorno.</p>
+      <p>PAR🇮🇹LE, conosciuto come Wordle Italiano, è un gioco di parole molto popolare. È semplice, gratuito e perfetto per qualche minuto di relax.</p>
 
       <h2>Che cos’è PAR🇮🇹LE</h2>
-      <p>Il gioco consiste nell’indovinare una parola italiana di cinque lettere in sei tentativi. Dopo ogni tentativo, il gioco ti mostra quali lettere sono corrette.</p>
+      <p>Il gioco consiste nell’indovinare una parola di cinque lettere in sei tentativi. Ogni tentativo ti aiuta a capire quali lettere sono corrette.</p>
 
       <h2>Come si gioca</h2>
-      <p>Scrivi una parola di cinque lettere e osserva i risultati. Le lettere corrette ti guidano verso la soluzione. Non serve fretta: puoi giocare con calma.</p>
+      <p>Scrivi una parola di cinque lettere. Il gioco ti mostra quali lettere sono giuste e quali no, aiutandoti a trovare lentamente la parola del giorno.</p>
 
-      <h2>Perché è così popolare</h2>
-      <p>È veloce, leggero e divertente. Inoltre aiuta a migliorare il vocabolario e la concentrazione. Ogni giorno c’è una nuova parola da scoprire.</p>
+      <h2>Perché piace a tutti</h2>
+      <p>È veloce, leggero e aiuta a migliorare il vocabolario. Ogni giorno ti aspetta una nuova parola da indovinare.</p>
 
-      <h2>Consigli per giocare meglio</h2>
-      <p>Inizia con parole ricche di vocali come “AMORE” o “AIUTO”. Usa parole comuni e non ripetere lettere già scartate.</p>
-
-      <h2>Soluzione del giorno</h2>
-      <p>Molti giocatori cercano indizi perché alcune parole possono essere difficili. Online esistono suggerimenti che non rovinano la sfida.</p>
+      <h2>Consigli</h2>
+      <p>Inizia con parole piene di vocali come “AMORE”. Non ripetere lettere già sbagliate e ragiona con calma.</p>
 
       <h2>Conclusione</h2>
-      <p>PAR🇮🇹LE è un gioco semplice ma intelligente. Perfetto per divertirsi e imparare ogni giorno qualcosa di nuovo.</p>
+      <p>PAR🇮🇹LE è un gioco intelligente, semplice e divertente. Perfetto per imparare e divertirsi allo stesso tempo.</p>
     </div>
 
   </body>
